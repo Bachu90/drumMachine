@@ -1,18 +1,30 @@
 import React from 'react';
 import sounds from './sounds';
 
-const Drums = props => {
+class Drums extends React.Component {
+    state={
+        activeDrum: ''
+    }
 
-    return(
-        <div className="drums-keyboard">
-        {sounds[props.bank].map(sound => (
-            <div className="drum-pad" id={sound.id} key={sound.id} onClick={(e) => {
-                props.click(e)
-                props.displayChange(sound.id)
-            }} >{sound.keyTrigger}<audio src={sound.url} className="clip" ></audio></div>
-        ))}
-        </div>
-    )
+    handleDrumPadPress = drumPad => {
+        drumPad.classList.add('pressed');
+        setTimeout(() => {
+          drumPad.classList.remove('pressed');
+        },200);
+      }
+
+    render(){
+        return(
+            <div className="drums-keyboard">
+            {sounds[this.props.bank].map(sound => (
+                <div className={`drum-pad ${this.props.powerOn && 'active'}`} id={sound.id} key={sound.id} >
+                    {sound.keyTrigger}
+                    <audio src={sound.url} className="clip" ></audio>
+                </div>
+            ))}
+            </div>
+        )
+    }
 }
 
 export default Drums;

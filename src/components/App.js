@@ -3,7 +3,6 @@ import './App.css';
 import Drums from './Drums';
 import Display from './Display';
 import Switch from './Switch';
-import sounds from './sounds';
 
 class App extends React.Component {
 
@@ -17,16 +16,24 @@ class App extends React.Component {
   displaySwitchOff;
 
   powerSwitch = () => {
+    this.displayChange(this.state.powerOn ? 'Power off' : 'Power on')
     this.setState(prevState => ({
       powerOn: !prevState.powerOn
     }))
   }
 
   bankSwitch = () => {
-    const bank = this.state.bank === "bankOne" ? "bankTwo" : "bankOne";
-    this.setState({
-      bank
-    })
+    if(this.state.bank === "bankOne"){
+      this.setState({
+        bank: 'bankTwo'
+      })
+      this.displayChange('Smooth piano kit');
+    }else {
+      this.setState({
+        bank: 'bankOne'
+      })
+      this.displayChange('Heater Kit');
+    }
   }
 
   displayChange = text => {
@@ -41,44 +48,9 @@ class App extends React.Component {
     }, 1000);
   }
 
-  handleDrumPadPress = drumPad => {
-    drumPad.classList.add('active');
-    setTimeout(() => {
-      drumPad.classList.remove('active');
-    },400);
-  }
-
-  playSound = drumPad => {
-    const sound = drumPad.querySelector('audio');
-    sound.volume = this.state.volume;
-    sound.play();
-  }
-
-  handleKeyUp = () => {
-    const drumPads = document.querySelectorAll('.drum-pad');
-    [...drumPads].forEach(drumPad => drumPad.classList.contains('active') && drumPad.classList.remove('active'));
-  }
-
-  handleKeyDown = (e) => {
-    const key = e.keyCode;
-    const sound = sounds[this.state.bank].find(sound => sound.keyCode === key);
-    if(sound){
-      const drumPad = document.getElementById(sound.id);
-      if(drumPad){
-        this.playSound(drumPad)
-        this.displayChange(sound.id);
-        this.handleDrumPadPress(drumPad);
-      } 
-    }
-  }
-
-  handleClick = (e) => {
-    this.playSound(e.target);
-    this.handleDrumPadPress(e.target);
-  }
-
   changeVolume = (e) => {
     const volume = e.target.value / 100;
+    this.displayChange(`Volume ${e.target.value}`);
     this.setState({
       volume
     })
@@ -89,13 +61,7 @@ class App extends React.Component {
       <div className="drum-machine" id="drum-machine">
         <div className="console-left">
           <Display text={this.state.display} />
-          <Drums 
-            click={this.handleClick} 
-            displayChange={this.displayChange} 
-            bank={this.state.bank} 
-            handleKeyDown={this.handleKeyDown}
-            handleKeyUp={this.handleKeyUp}
-          />
+          <Drums volume={this.state.volume} displayChange={this.displayChange} bank={this.state.bank} powerOn={this.state.powerOn}/>
         </div>
         <div className="console-right">
           <Switch name="power" label={['O','I']} condition={this.state.powerOn === true} click={this.powerSwitch} />

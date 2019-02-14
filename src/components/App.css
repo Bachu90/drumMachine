@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #333;
+}
+
 .drum-machine {
   width: 100%;
   max-width: 1280px;
@@ -30,9 +34,9 @@
   width: 50%;
   margin: 20px 0;
   min-height: 60px;
-  color: white;
+  color: #000;
   font-size: 28px;
-  background-color: #286ede;
+  background-color: #caccff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,14 +65,18 @@
   opacity: .8;
   cursor: pointer;
   margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 1px #fff;
+  text-shadow: 1px 1px #fff;
 }
+
 
 .drum-pad:hover {
   opacity: 1;
 }
 
-.drum-pad.active {
-  background-color: #777;
+.drum-pad.pressed {
+  background-color: #caccff;
 }
 
 .console-right {
@@ -87,7 +95,7 @@
 }
 
 .switch-label {
-  color: #fff;
+  color: #cfdeff;
   text-transform: uppercase;
   font-size: 18px;
   padding-bottom: 5px;
@@ -97,7 +105,7 @@
   width: 80px;
   height: 30px;
   margin: 0 auto;
-  border: 2px solid #fff;
+  border: 2px solid #cfdeff;
   position: relative;
   border-radius: 25px;
   cursor: pointer;
@@ -108,7 +116,7 @@
   width: 50%;
   height: 100%;
   text-align: center;
-  color: #fff;
+  color: #cfdeff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   line-height: 26px;
@@ -160,7 +168,7 @@
   /* Specified height */
   border-radius: 2px;
   /* Radius */
-  background: #fff;
+  background: #cfdeff;
   /* Grey background */
   outline: none;
   /* Remove outline */

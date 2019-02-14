@@ -1,0 +1,39 @@
+.drum-machine {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #333;
+}
+.console-left {
+  display: inline-block;
+  width: 60%;
+  height: 100%;
+}
+
+#display {
+  height: 100px;
+  color: white;
+}
+
+.drums-keyboard {
+  height: 40vh;
+  max-height: 500px;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 30% 30% 30%;
+}
+
+.drum-pad {
+  display: block;
+  max-width: 100px;
+  max-height: 100px;
+  background-color: red;
+  margin: 10px;
+}
+
+.console-right {
+  display: inline-block;
+  width: 40%;
+  height: 100%;
+}

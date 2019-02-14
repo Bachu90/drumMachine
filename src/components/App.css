@@ -1,39 +1,208 @@
+@import 'https://fonts.googleapis.com/css?family=Share+Tech+Mono';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .drum-machine {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   min-height: 100vh;
   background-color: #333;
+  font-family: 'Share Tech Mono';
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
 }
 .console-left {
-  display: inline-block;
-  width: 60%;
-  height: 100%;
+  flex-basis: 70%;
+  flex-shrink: 1;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #display {
-  height: 100px;
+  width: 50%;
+  margin: 20px 0;
+  min-height: 60px;
   color: white;
+  font-size: 28px;
+  background-color: #286ede;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
 }
 
 .drums-keyboard {
-  height: 40vh;
-  max-height: 500px;
+  width: 80%;
+  max-width: 550px;
+  margin: 40px 0;
+  height: 70vh;
+  max-height: 450px;
   display: grid;
   grid-template-columns: 30% 30% 30%;
   grid-template-rows: 30% 30% 30%;
+  justify-content: center;
+  align-content: center;
 }
 
 .drum-pad {
-  display: block;
-  max-width: 100px;
-  max-height: 100px;
-  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  background-color: #f44336;
+  opacity: .8;
+  cursor: pointer;
   margin: 10px;
 }
 
+.drum-pad:hover {
+  opacity: 1;
+}
+
+.drum-pad.active {
+  background-color: #777;
+}
+
 .console-right {
+  flex-basis: 30%;
+  flex-shrink: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.switch-container {
+  width: 100px;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.switch-label {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.switch {
+  width: 80px;
+  height: 30px;
+  margin: 0 auto;
+  border: 2px solid #fff;
+  position: relative;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.switch span {
   display: inline-block;
-  width: 40%;
+  width: 50%;
   height: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 26px;
+  position: absolute;
+}
+
+.switch span:first-child {
+  left: 0;
+}
+
+.switch span:last-child {
+  left: 50%;
+}
+
+.switch::after {
+  border-radius: 25px;
+  content: '';
+  display: block;
+  width: 50%;
+  height: 100%;
+  background-color: #f44336;
+  position: absolute;
+  top: 0;
+  transition: left .3s;
+}
+
+.switch.left::after {
+  left: 0;
+}
+
+.switch.right::after {
+  left: 50%;
+}
+
+.slider-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.slider {
+  -webkit-appearance: none;
+  /* Override default CSS styles */
+  appearance: none;
+  width: 100%;
+  max-width: 150%;
+  margin: 0 auto;
+  /* Full-width */
+  height: 5px;
+  /* Specified height */
+  border-radius: 2px;
+  /* Radius */
+  background: #fff;
+  /* Grey background */
+  outline: none;
+  /* Remove outline */
+  opacity: 1;
+  /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s;
+  /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 0.8;
+  /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Override default look */
+  appearance: none;
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  /* Slider handle height */
+  background: #f44336;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+  border-radius: 5px;
+  /* Radius */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  /* Slider handle height */
+  background: #f44336;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+  border-radius: 5px;
+  /* Radius */
 }

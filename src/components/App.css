@@ -20,6 +20,7 @@ body {
   display: flex;
   justify-content: stretch;
   align-items: stretch;
+  padding: 50px 0;
 }
 .console-left {
   flex-basis: 70%;
@@ -32,15 +33,20 @@ body {
 
 #display {
   width: 50%;
-  margin: 20px 0;
   min-height: 60px;
   color: #000;
   font-size: 28px;
   background-color: #caccff;
+  opacity: .2;
+  transition: opacity .4s;
   display: flex;
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+}
+
+.drum-machine.active #display {
+  opacity: 1;
 }
 
 .drums-keyboard {
@@ -66,17 +72,24 @@ body {
   cursor: pointer;
   margin: 10px;
   border-radius: 10px;
+  box-shadow: none;
+  text-shadow: none;
+  transition: box-shadow .3s, text-shadow .3s;
+}
+
+.drum-machine.active .drum-pad {
   box-shadow: 0 0 2px 1px #fff;
   text-shadow: 1px 1px #fff;
 }
 
 
-.drum-pad:hover {
+.drum-machine.active .drum-pad:hover {
   opacity: 1;
 }
 
 .drum-pad.pressed {
-  background-color: #caccff;
+  background-color: #ff6900;
+  opacity: 1;
 }
 
 .console-right {
@@ -95,20 +108,31 @@ body {
 }
 
 .switch-label {
-  color: #cfdeff;
+  color: rgba(255,255,255,.2);
   text-transform: uppercase;
   font-size: 18px;
   padding-bottom: 5px;
+  transition: color .3s;
+}
+
+.drum-machine.active .switch-label, .drum-machine.active .switch span {
+  color: #fff;
 }
 
 .switch {
   width: 80px;
   height: 30px;
   margin: 0 auto;
-  border: 2px solid #cfdeff;
+  border: 2px solid;
+  border-color: rgba(255,255,255, .2);
   position: relative;
   border-radius: 25px;
   cursor: pointer;
+  transition: border-color .3s;
+}
+
+.drum-machine.active .switch {
+  border-color: #fff;
 }
 
 .switch span {
@@ -116,11 +140,12 @@ body {
   width: 50%;
   height: 100%;
   text-align: center;
-  color: #cfdeff;
+  color: rgba(255,255,255, .2);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
   line-height: 26px;
   position: absolute;
+  transition: color .3s;
 }
 
 .switch span:first-child {
@@ -168,7 +193,7 @@ body {
   /* Specified height */
   border-radius: 2px;
   /* Radius */
-  background: #cfdeff;
+  background-color: rgba(207,222,255, .2);
   /* Grey background */
   outline: none;
   /* Remove outline */
@@ -176,7 +201,11 @@ body {
   /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s;
   /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
+  transition: opacity .2s, background-color .3s;
+}
+
+.drum-machine.active .slider {
+  background-color: #cfdeff
 }
 
 /* Mouse-over effects */
@@ -213,4 +242,22 @@ body {
   /* Cursor on hover */
   border-radius: 5px;
   /* Radius */
+}
+
+@media (max-width: 767px) and (orientation: portrait){
+  .drum-machine {
+    flex-direction: column;
+  }
+
+  .console-left { 
+    flex-basis: 50%;
+  }
+
+  .console-right {
+    flex-basis: 50%;
+  }
+
+  .drums-keyboard {
+    width: 95%;
+  }
 }

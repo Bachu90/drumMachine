@@ -7,8 +7,8 @@ import Switch from './Switch';
 class App extends React.Component {
 
   state = {
-    volume: 0.8,
-    bank: 'bankTwo',
+    volume: 50,
+    bank: 'bankOne',
     display: '',
     powerOn: true
   }
@@ -20,19 +20,22 @@ class App extends React.Component {
     this.setState(prevState => ({
       powerOn: !prevState.powerOn
     }))
+    
   }
 
   bankSwitch = () => {
-    if(this.state.bank === "bankOne"){
-      this.setState({
-        bank: 'bankTwo'
-      })
-      this.displayChange('Smooth piano kit');
-    }else {
-      this.setState({
-        bank: 'bankOne'
-      })
-      this.displayChange('Heater Kit');
+    if(this.state.powerOn){
+      if(this.state.bank === "bankOne"){
+        this.setState({
+          bank: 'bankTwo'
+        })
+        this.displayChange('Smooth piano kit');
+      }else {
+        this.setState({
+          bank: 'bankOne'
+        })
+        this.displayChange('Heater Kit');
+      }
     }
   }
 
@@ -49,16 +52,28 @@ class App extends React.Component {
   }
 
   changeVolume = (e) => {
-    const volume = e.target.value / 100;
-    this.displayChange(`Volume ${e.target.value}`);
-    this.setState({
-      volume
+    if(this.state.powerOn){
+      const volume = e.target.value;
+      this.displayChange(`Volume ${volume}`);
+      this.setState({
+        volume
+      })
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', e => {
+      if(e.keyCode === 66 && this.state.powerOn){
+        this.bankSwitch()
+      }else if(e.keyCode === 80){
+        this.powerSwitch()
+      }
     })
   }
 
   render() {
     return (
-      <div className="drum-machine" id="drum-machine">
+      <div className={`drum-machine ${this.state.powerOn ? 'active' : ''}`} id="drum-machine">
         <div className="console-left">
           <Display text={this.state.display} />
           <Drums volume={this.state.volume} displayChange={this.displayChange} bank={this.state.bank} powerOn={this.state.powerOn}/>
@@ -68,7 +83,7 @@ class App extends React.Component {
           <Switch name="bank" label={['II', 'I']} condition={this.state.bank === "bankOne"} click={this.bankSwitch} />
           <div className="slider-container">
             <p className="switch-label">volume</p>
-            <input type="range" className="slider" val="0.5" onChange={this.changeVolume}></input>
+            <input type="range" className="slider" value={this.state.volume} onChange={this.changeVolume} disabled={!this.state.powerOn}></input>
           </div>
         </div>
       </div>

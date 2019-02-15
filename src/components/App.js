@@ -10,7 +10,7 @@ class App extends React.Component {
     volume: 50,
     bank: 'bankOne',
     display: '',
-    powerOn: true
+    powerOn: false
   }
 
   displaySwitchOff;
